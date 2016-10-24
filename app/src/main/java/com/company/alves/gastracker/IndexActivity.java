@@ -21,7 +21,6 @@ public class IndexActivity extends AppCompatActivity {
     private EditText edtYear;
     private EditText edtAvg;
     private Button btnNext;
-    /*teste*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
