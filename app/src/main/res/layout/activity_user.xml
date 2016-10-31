@@ -14,6 +14,7 @@
         android:inputType="text"
         android:width="700px"
         android:hint="Qual o seu nome?"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:layout_above="@+id/edtCar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -28,6 +29,7 @@
         android:id="@+id/edtCar"
         android:inputType="text"
         android:hint="Qual o seu carro?"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:textColorHint="#FFFFFF"
         android:textSize="22dp"
         android:textAlignment="center"
@@ -56,6 +58,7 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:hint="Qual o ano do seu carro?"
+        android:digits="0123456789"
         android:layout_above="@+id/edtAvg"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
@@ -71,6 +74,7 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:layout_alignParentStart="true"
+        android:digits="0123456789.,"
         android:layout_alignParentEnd="true"
         android:hint="Qual a média de consumo?" />
 
