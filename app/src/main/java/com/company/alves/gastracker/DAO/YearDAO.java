@@ -17,9 +17,10 @@ import java.util.List;
 public class YearDAO {
     DataSource ds;
     ContentValues values;
-
+    MonthDAO monthDAO;
     public YearDAO(Context context) {
         ds = new DataSource(context);
+        monthDAO = new MonthDAO(context);
     }
 
     //Cria um novo ano ou se passar o id do registro e a flag atualizar true atualiza o mesmo
@@ -30,12 +31,12 @@ public class YearDAO {
         values.put("year", year.getYear());
         try {
             ds.persist(values, DataModel.getTbYear());
+            monthDAO.monthsYear();
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-
     public List<Year> getYears(){
         List<Year> retorno = new ArrayList<Year>();
         Cursor cursor = ds.find(DataModel.getTbYear(), null, null, null, null, null, null, null);

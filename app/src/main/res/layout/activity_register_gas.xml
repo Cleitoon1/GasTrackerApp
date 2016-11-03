@@ -81,4 +81,19 @@
         android:startYear="2015"
         android:endYear="2017" />
 
+    <EditText
+        android:layout_width="200px"
+        android:layout_height="wrap_content"
+        android:id="@+id/supId"
+        android:inputType="text"
+        android:width="700px"
+        android:hint="Qual o valor gasto (R$)?"
+        android:textColorHint="#000000"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible" />
+
 </RelativeLayout>

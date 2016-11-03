@@ -12,6 +12,7 @@ import com.company.alves.gastracker.DAO.UserDAO;
 import com.company.alves.gastracker.Model.User;
 
 public class UserActivity extends AppCompatActivity {
+    private EditText edtId;
     private EditText edtName;
     private EditText edtCar;
     private EditText edtYear;
@@ -24,22 +25,27 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         UserDAO userDAO = new UserDAO(getApplicationContext());
-        if(userDAO.countUsers() > 0){
-            Intent dashboard = new Intent(UserActivity.this, IndexActivity.class);
-            startActivity(dashboard);
-            finish();
-        }
+
         //passando os valores para a variavel
-        edtName = (EditText) findViewById(R.id.btnYear);
+        edtId = (EditText) findViewById(R.id.edtId);
+        edtName = (EditText) findViewById(R.id.edtName);
         edtCar = (EditText) findViewById(R.id.edtCar);
         edtYear = (EditText) findViewById(R.id.edtYear);
         edtAvg = (EditText) findViewById(R.id.edtAvg);
         btnSave = (Button) findViewById(R.id.btnNext);
 
+        User usr = userDAO.getUser();
+        edtId.setText(String.valueOf(usr.getId()));
+        edtName.setText(usr.getName());
+        edtCar.setText(usr.getCar());
+        edtYear.setText(String.valueOf(usr.getCarYear()));
+        edtAvg.setText(String.valueOf(usr.getAvgConsumption()));
+
         //pega o on click
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 User user = new User();
+                user.setId(Integer.valueOf(edtId.getText().toString()));
                 user.setName(edtName.getText().toString());
                 user.setCar(edtCar.getText().toString());
                 user.setCarYear(Integer.valueOf(edtYear.getText().toString()));
@@ -47,7 +53,7 @@ public class UserActivity extends AppCompatActivity {
                 UserDAO userDAO = new UserDAO(getApplicationContext());
                 if(userDAO.addNEditUser(user)){
                     Toast.makeText(getApplication(), "Usuário criado com sucesso", Toast.LENGTH_LONG).show();
-                    Intent dashboard = new Intent(UserActivity.this, IndexActivity.class);
+                    Intent dashboard = new Intent(UserActivity.this, GeneralList.class);
                     startActivity(dashboard);
                     finish();
                 }

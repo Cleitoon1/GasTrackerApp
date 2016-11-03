@@ -10,7 +10,7 @@
     <EditText
         android:layout_width="200px"
         android:layout_height="wrap_content"
-        android:id="@+id/btnYear"
+        android:id="@+id/edtName"
         android:inputType="text"
         android:width="700px"
         android:hint="Qual o seu nome?"
@@ -77,5 +77,22 @@
         android:digits="0123456789.,"
         android:layout_alignParentEnd="true"
         android:hint="Qual a média de consumo?" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtId"
+        android:inputType="text"
+        android:width="700px"
+        android:hint="Qual o seu nome?"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:textColorHint="#FFFFFF"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="false"
+        android:visibility="invisible" />
 
 </RelativeLayout>

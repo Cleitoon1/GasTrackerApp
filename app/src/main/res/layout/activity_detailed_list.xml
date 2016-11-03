@@ -8,7 +8,7 @@
     android:background="@drawable/back3">
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnEdit"
         android:layout_width="100px"
         android:layout_height="100px"
         android:background="@drawable/addbtn"
@@ -23,7 +23,7 @@
         android:id="@+id/listView"
         android:layout_alignParentStart="true"
         android:divider="#ff4081"
-        android:layout_above="@+id/btnAdd" />
+        android:layout_above="@+id/btnEdit" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,9 +45,9 @@
         android:textSize="100px"
         android:onClick="saveName"
         android:layout_alignBottom="@+id/monthTxt"
-        android:layout_alignStart="@+id/btnAdd"
+        android:layout_alignStart="@+id/btnEdit"
         android:layout_alignTop="@+id/monthTxt"
-        android:layout_alignEnd="@+id/btnAdd"
+        android:layout_alignEnd="@+id/btnEdit"
         android:width="30px"
         android:height="50px" />
 

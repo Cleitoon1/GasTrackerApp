@@ -7,8 +7,10 @@ import android.database.Cursor;
 import com.company.alves.gastracker.DataModel.DataModel;
 import com.company.alves.gastracker.DataSource.DataSource;
 import com.company.alves.gastracker.Model.User;
+import com.company.alves.gastracker.Model.Year;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -17,21 +19,31 @@ import java.util.List;
 public class UserDAO {
     DataSource ds;
     ContentValues values;
+    YearDAO yearDAO;
 
     public UserDAO(Context context) {
         ds = new DataSource(context);
+        yearDAO = new YearDAO(context);
     }
 
     //Cria um novo usuário ou se passar o id do registro e a flag atualizar true atualiza o mesmo
     public boolean addNEditUser(User usr) {
         values = new ContentValues();
-        values.put("id", usr.getName());
+        values.put("id", usr.getId());
         values.put("name", usr.getName());
         values.put("car", usr.getCar());
         values.put("car_year", usr.getCarYear());
         values.put("avg_consumption", usr.getAvgConsumption());
         try {
             ds.persist(values, DataModel.getTbUser());
+            if(usr.getId() != 1){
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+                if(yearDAO.getYearByNumber(year).getYear() != year){
+                    Year y = new Year();
+                    y.setYear(year);
+                    yearDAO.addNEditYear(y);
+                }
+            }
             return true;
         } catch (Exception e) {
             return false;
@@ -39,8 +51,8 @@ public class UserDAO {
     }
 
     //Método para retornar o usuário criado.
-    public User getUserById(int idUser) {
-        Cursor cursor = ds.find(DataModel.getTbUser(), null, "id = " + idUser, null, null, null, null, null);
+    public User getUser() {
+        Cursor cursor = ds.find(DataModel.getTbUser(), null, "id = " + 1, null, null, null, null, null);
         User aux = new User();
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
