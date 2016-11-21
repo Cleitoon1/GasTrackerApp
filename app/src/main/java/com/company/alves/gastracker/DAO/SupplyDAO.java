@@ -20,8 +20,16 @@ import java.util.List;
 public class SupplyDAO {
     DataSource ds;
     ContentValues values;
-    public SupplyDAO(Context context){
-        ds = new DataSource(context);
+    private static SupplyDAO instance;
+
+    public static SupplyDAO getInstance(Context context){
+        if(instance == null){
+            instance = new SupplyDAO(context);
+        }
+        return instance;
+    }
+    private SupplyDAO(Context context){
+        ds = DataSource.getInstance(context);
     }
 
     //Cria um novo abastecimento ou se passar o id do registro e a flag atualizar true atualiza o mesmo
@@ -62,6 +70,7 @@ public class SupplyDAO {
             retorno.setGasStation(cursor.getString(cursor.getColumnIndex("gas_station")));
             retorno.setIdMonth(cursor.getInt(cursor.getColumnIndex("month_id")));
         }
+        cursor.close();
         return retorno;
     }
 
@@ -93,6 +102,7 @@ public class SupplyDAO {
                 lst.add(aux);
             }
         }
+        cursor.close();
         return lst;
     }
 

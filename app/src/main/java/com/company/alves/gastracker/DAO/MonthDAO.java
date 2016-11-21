@@ -20,9 +20,17 @@ public class MonthDAO {
     DataSource ds;
     ContentValues values;
     YearDAO yearDAO;
-    public MonthDAO(Context context){
-        ds = new DataSource(context);
-        yearDAO = new YearDAO(context);
+    private static MonthDAO instance;
+
+    public static MonthDAO getInstance(Context context){
+        if(instance == null){
+            instance = new MonthDAO(context);
+        }
+        return instance;
+    }
+
+    private MonthDAO(Context context){
+        ds = DataSource.getInstance(context);
     }
 
     //Cria um mes ano ou se passar o id do registro e a flag atualizar true atualiza o mesmo
@@ -57,6 +65,7 @@ public class MonthDAO {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return lst;
     }
 
@@ -71,6 +80,7 @@ public class MonthDAO {
             retorno.setNumber(cursor.getInt(cursor.getColumnIndex("number")));
             retorno.setNumber(cursor.getInt(cursor.getColumnIndex("year_id")));
         }
+        cursor.close();
         return retorno;
     }
 

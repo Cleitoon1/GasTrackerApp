@@ -20,10 +20,18 @@ public class UserDAO {
     DataSource ds;
     ContentValues values;
     YearDAO yearDAO;
+    private static UserDAO instance;
 
-    public UserDAO(Context context) {
-        ds = new DataSource(context);
-        yearDAO = new YearDAO(context);
+    public static UserDAO getInstance(Context context){
+        if(instance == null){
+            instance = new UserDAO(context);
+        }
+        return instance;
+    }
+
+    private UserDAO(Context context) {
+        ds = DataSource.getInstance(context);
+        yearDAO = YearDAO.getInstance(context);
     }
 
     //Cria um novo usuário ou se passar o id do registro e a flag atualizar true atualiza o mesmo
@@ -67,6 +75,7 @@ public class UserDAO {
 
     public int countUsers(){
         Cursor cursor = ds.find(DataModel.getTbUser(), null, null, null, null, null, null, null);
-        return cursor.getCount();
+        int retorno = cursor.getCount();
+        return retorno;
     }
 }

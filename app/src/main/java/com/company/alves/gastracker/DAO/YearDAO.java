@@ -3,6 +3,7 @@ package com.company.alves.gastracker.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.provider.ContactsContract;
 
 import com.company.alves.gastracker.DataModel.DataModel;
 import com.company.alves.gastracker.DataSource.DataSource;
@@ -18,9 +19,18 @@ public class YearDAO {
     DataSource ds;
     ContentValues values;
     MonthDAO monthDAO;
-    public YearDAO(Context context) {
-        ds = new DataSource(context);
-        monthDAO = new MonthDAO(context);
+    private static YearDAO instance;
+
+    public static YearDAO getInstance(Context context){
+        if(instance == null){
+            instance = new YearDAO(context);
+        }
+        return instance;
+    }
+
+    private YearDAO(Context context) {
+        ds = DataSource.getInstance(context);
+        monthDAO = MonthDAO.getInstance(context);
     }
 
     //Cria um novo ano ou se passar o id do registro e a flag atualizar true atualiza o mesmo

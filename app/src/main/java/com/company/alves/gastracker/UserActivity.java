@@ -24,7 +24,7 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        UserDAO userDAO = new UserDAO(getApplicationContext());
+        UserDAO userDAO = UserDAO.getInstance(getApplicationContext());
 
         //passando os valores para a variavel
         edtId = (EditText) findViewById(R.id.edtId);
@@ -50,7 +50,7 @@ public class UserActivity extends AppCompatActivity {
                 user.setCar(edtCar.getText().toString());
                 user.setCarYear(Integer.valueOf(edtYear.getText().toString()));
                 user.setAvgConsumption(Double.valueOf(edtAvg.getText().toString()));
-                UserDAO userDAO = new UserDAO(getApplicationContext());
+                UserDAO userDAO = UserDAO.getInstance(getApplicationContext());
                 if(userDAO.addNEditUser(user)){
                     Toast.makeText(getApplication(), "Usuário criado com sucesso", Toast.LENGTH_LONG).show();
                     Intent dashboard = new Intent(UserActivity.this, GeneralList.class);

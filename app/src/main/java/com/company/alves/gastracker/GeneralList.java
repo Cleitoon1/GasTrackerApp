@@ -16,7 +16,7 @@ public class GeneralList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general_list);
-        UserDAO userDAO = new UserDAO(getApplicationContext());
+        UserDAO userDAO = UserDAO.getInstance(getApplicationContext());
         if (userDAO.countUsers() < 1) {
             Intent userIntent = new Intent(GeneralList.this, UserActivity.class);
             startActivity(userIntent);
@@ -24,7 +24,6 @@ public class GeneralList extends AppCompatActivity {
         }
 
         btnEdit = (Button) findViewById(R.id.btnEdit);
-
         btnEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent userIntent = new Intent(GeneralList.this, UserActivity.class);

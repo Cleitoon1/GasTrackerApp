@@ -33,7 +33,7 @@ public class IndexActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Year year = new Year();
                 year.setYear(Integer.valueOf(edtYear.getText().toString()));
-                yearDAO = new YearDAO(getApplicationContext());
+                yearDAO = YearDAO.getInstance(getApplicationContext());
                 if(yearDAO.addNEditYear(year)){
                     Toast.makeText(getApplication(), "Usuário criado com sucesso", Toast.LENGTH_LONG).show();
                 }

@@ -28,7 +28,7 @@ public class RegisterGas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_gas);
 
-        supplyDAO = new SupplyDAO(getApplicationContext());
+        supplyDAO = SupplyDAO.getInstance(getApplicationContext());
         edtId = (EditText) findViewById(R.id.supId);
         edtValor = (EditText) findViewById(R.id.edtValor);
         edtLitro = (EditText) findViewById(R.id.edtLitro);
@@ -38,8 +38,8 @@ public class RegisterGas extends AppCompatActivity {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SupplyDAO supplyDAO = new SupplyDAO(getApplicationContext());
-                MonthDAO monthDAO = new MonthDAO(getApplicationContext());
+                SupplyDAO supplyDAO = SupplyDAO.getInstance(getApplicationContext());
+                MonthDAO monthDAO =  MonthDAO.getInstance(getApplicationContext());
 
                 Supply supply = new Supply();
                 supply.setId(Integer.valueOf(edtId.getText().toString()));
