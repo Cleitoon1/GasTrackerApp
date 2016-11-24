@@ -66,6 +66,9 @@ public class DetailedList extends AppCompatActivity {
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intentGas = new Intent(DetailedList.this, RegisterGas.class);
+                intentGas.putExtra("supplyId", 1); //Optional parameters
+                DetailedList.this.startActivity(intentGas);
 
             }
         });

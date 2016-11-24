@@ -27,6 +27,8 @@ public class RegisterGas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_gas);
+        Intent intent = getIntent();
+        int supplyId = Integer.getInteger(intent.getStringExtra("supplyId"));
 
         supplyDAO = SupplyDAO.getInstance(getApplicationContext());
         edtId = (EditText) findViewById(R.id.supId);
@@ -35,6 +37,9 @@ public class RegisterGas extends AppCompatActivity {
         edtStation = (EditText) findViewById(R.id.edtStation);
         edtDate = (EditText) findViewById(R.id.edtValor);
         btnSave = (Button) findViewById(R.id.btnSave);
+
+        if(supplyId > 0)
+            supplyDAO.getSupply(supplyId);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
