@@ -11,6 +11,7 @@ import com.company.alves.gastracker.DAO.UserDAO;
 public class GeneralList extends AppCompatActivity {
 
     private Button btnEdit;
+    private Button btnReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +25,20 @@ public class GeneralList extends AppCompatActivity {
         }
 
         btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnReport = (Button) findViewById(R.id.mensalBtn);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent userIntent = new Intent(GeneralList.this, UserActivity.class);
                 startActivity(userIntent);
+                finish();
+            }
+        });
+
+        btnReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent detailedIntent = new Intent(GeneralList.this, DetailedList.class);
+                startActivity(detailedIntent);
                 finish();
             }
         });

@@ -14,7 +14,6 @@
         android:inputType="text"
         android:width="700px"
         android:hint="Qual o seu nome?"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:layout_above="@+id/edtCar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -22,7 +21,7 @@
         android:textSize="22dp"
         android:textAlignment="center"
         android:textColor="#FFFFFF"/>
-
+    <!-- android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" -->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,11 +56,11 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:hint="Qual o ano do seu carro?"
-        android:digits="0123456789"
+
         android:layout_above="@+id/edtAvg"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
-
+    <!--        android:digits="0123456789" -->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,17 +72,16 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:layout_alignParentStart="true"
-        android:digits="0123456789.,"
         android:layout_alignParentEnd="true"
         android:hint="Qual a média de consumo?" />
-
+    <!-- android:digits="0123456789.," -->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edtId"
         android:inputType="text"
         android:width="700px"
-        android:hint="Qual o seu nome?"
+        android:hint="ID do Usuário"
         android:textColorHint="#FFFFFF"
         android:textSize="22dp"
         android:textAlignment="center"
@@ -92,5 +90,4 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="false"
         android:visibility="invisible" />
-
 </RelativeLayout>

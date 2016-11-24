@@ -34,13 +34,14 @@ public class UserActivity extends AppCompatActivity {
         edtAvg = (EditText) findViewById(R.id.edtAvg);
         btnSave = (Button) findViewById(R.id.btnNext);
 
-        User usr = userDAO.getUser();
-        edtId.setText(String.valueOf(usr.getId()));
-        edtName.setText(usr.getName());
-        edtCar.setText(usr.getCar());
-        edtYear.setText(String.valueOf(usr.getCarYear()));
-        edtAvg.setText(String.valueOf(usr.getAvgConsumption()));
-
+        if(userDAO.countUsers() < 1) {
+            User usr = userDAO.getUser();
+            edtId.setText(String.valueOf(usr.getId()));
+            edtName.setText(usr.getName());
+            edtCar.setText(usr.getCar());
+            edtYear.setText(String.valueOf(usr.getCarYear()));
+            edtAvg.setText(String.valueOf(usr.getAvgConsumption()));
+        }
         //pega o on click
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -13,7 +13,6 @@
         android:layout_height="100px"
         android:background="@drawable/addbtn"
         android:textSize="100px"
-        android:onClick="saveName"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
@@ -21,9 +20,20 @@
         android:layout_width="match_parent"
         android:layout_height="800px"
         android:id="@+id/listView"
-        android:layout_alignParentStart="true"
         android:divider="#ff4081"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/monthTxt"
         android:layout_above="@+id/btnEdit" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_gravity="center"
+        android:text="Nenhum abastecimento realizado"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,12 +54,11 @@
         android:background="@drawable/arrow"
         android:textSize="100px"
         android:onClick="saveName"
-        android:layout_alignBottom="@+id/monthTxt"
-        android:layout_alignStart="@+id/btnEdit"
-        android:layout_alignTop="@+id/monthTxt"
-        android:layout_alignEnd="@+id/btnEdit"
         android:width="30px"
-        android:height="50px" />
+        android:height="50px"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/listView"
+        android:layout_alignTop="@+id/monthTxt" />
 
     <Button
         android:id="@+id/arrowLeft"
@@ -60,8 +69,8 @@
         android:background="@drawable/arrowl"
         android:textSize="100px"
         android:onClick="saveName"
-        android:layout_alignBottom="@+id/monthTxt"
         android:layout_alignParentStart="true"
+        android:layout_above="@+id/listView"
         android:layout_alignTop="@+id/monthTxt" />
 
 </RelativeLayout>
