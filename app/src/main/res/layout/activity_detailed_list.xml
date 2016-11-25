@@ -18,11 +18,10 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="800px"
+        android:layout_height="600px"
         android:id="@+id/listView"
         android:divider="#ff4081"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/monthTxt"
         android:layout_above="@+id/btnEdit" />
 
     <TextView
@@ -33,7 +32,9 @@
         android:layout_width="wrap_content"
         android:textColor="@android:color/black"
         android:textSize="22sp"
-        />
+        android:layout_above="@+id/listView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,7 +58,6 @@
         android:width="30px"
         android:height="50px"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/listView"
         android:layout_alignTop="@+id/monthTxt" />
 
     <Button
@@ -70,7 +70,15 @@
         android:textSize="100px"
         android:onClick="saveName"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/listView"
-        android:layout_alignTop="@+id/monthTxt" />
+        android:layout_alignTop="@+id/monthTxt"
+        android:layout_alignBottom="@+id/arrowRight" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="70px"
+        android:text="Editar cadastro"
+        android:id="@+id/button"
+        android:layout_below="@+id/monthTxt"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
