@@ -11,36 +11,22 @@
         android:id="@+id/btnEdit"
         android:layout_width="100px"
         android:layout_height="100px"
-        android:background="@drawable/addbtn"
+        android:background="@drawable/editbtn"
         android:textSize="100px"
         android:onClick="saveName"
         android:layout_marginBottom="99dp"
+        android:layout_marginEnd="33dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="44dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="45%"
-        android:id="@+id/percentage"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="213dp"
-        android:textStyle="bold"
-        android:focusableInTouchMode="false"
-        android:textColor="#FFFFFF"
-        android:textSize="100px" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/mensalBtn"
-        android:layout_width="100px"
+        android:layout_width="450px"
         android:layout_marginLeft="30px"
         android:layout_height="100px"
         android:background="@drawable/mensalbtn"
         android:layout_alignTop="@+id/btnEdit"
-        android:layout_alignEnd="@+id/percentage"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="36dp" />
 
 </RelativeLayout>
