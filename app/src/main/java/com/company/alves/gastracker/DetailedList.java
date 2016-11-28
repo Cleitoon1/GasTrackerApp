@@ -30,6 +30,7 @@ public class DetailedList extends AppCompatActivity {
     private Button btnRight;
     private Button btnLeft;
     private Button btnEdit;
+    private Button btnBack;
     private ListView listView;
     private EditText edtMonth;
     private SupplyDAO supplyDAO;
@@ -49,6 +50,7 @@ public class DetailedList extends AppCompatActivity {
         Button btnRight = (Button) findViewById(R.id.arrowRight);
         Button btnLeft = (Button) findViewById(R.id.arrowLeft);
         Button btnEdit = (Button) findViewById(R.id.btnEdit);
+        Button btnBack = (Button) findViewById(R.id.btnBack);
         final TextView monthTxt = (TextView) findViewById(R.id.monthTxt);
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         mes = calendar.get(Calendar.MONTH) + 1;
@@ -82,6 +84,13 @@ public class DetailedList extends AppCompatActivity {
                 intentGas.putExtra("monthId", 0); //Optional parameters
                 intentGas.putExtra("supplyId", 0);
                 DetailedList.this.startActivity(intentGas);
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentUser = new Intent(DetailedList.this, UserActivity.class);
+                DetailedList.this.startActivity(intentUser);
             }
         });
     }

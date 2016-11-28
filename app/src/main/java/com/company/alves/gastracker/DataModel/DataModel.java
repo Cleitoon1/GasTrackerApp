@@ -36,7 +36,7 @@ public class DataModel {
 
     public static String createTableUser(){
         String query = "CREATE TABLE " + getTbUser() + " (";
-        query += "id" + ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT DEFAULT 1, ";
+        query += "id" + ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT NOT NULL, ";
         query += "name " + TYPE_TEXT + ", ";
         query += "car " + TYPE_TEXT + ", ";
         query += "car_year " + TYPE_INTEGER + ", ";
@@ -46,14 +46,14 @@ public class DataModel {
 
     public static String createTableYear(){
         String query = "CREATE TABLE " + getTbYear() + " (";
-        query += "id"+ ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT DEFAULT 1, ";
+        query += "id"+ ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT NOT NULL, ";
         query += "year " + TYPE_INTEGER + " )";
         return query;
     }
 
     public static String createTableMonth(){
         String query = "CREATE TABLE " + getTbMonth() + " (";
-        query += "id" + ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT DEFAULT 1, ";
+        query += "id" + ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT NOT NULL, ";
         query += "name " + TYPE_TEXT + ", ";
         query += "number " + TYPE_INTEGER + ", ";
         query += "year_id " + TYPE_INTEGER + ", ";
@@ -63,7 +63,7 @@ public class DataModel {
 
     public static String createTableSupply(){
         String query = "CREATE TABLE " + getTbSupply() + " (";
-        query += "id" + ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT DEFAULT 1, ";
+        query += "id" + ' ' + TYPE_INTEGER_PK + " AUTOINCREMENT NOT NULL, ";
         query += "value " + TYPE_REAL + ", ";
         query += "liters " + TYPE_REAL + ", ";
         query += "date  DATETIME DEFAULT CURRENT_DATE, ";

@@ -68,6 +68,7 @@ public class DataSource extends SQLiteOpenHelper {
             Integer id = values.getAsInteger("id");
             db.update(tabela, values, "id = " + id, null);
         }else{
+            values.remove("id");
             db.insert(tabela, null, values);
         }
     }
