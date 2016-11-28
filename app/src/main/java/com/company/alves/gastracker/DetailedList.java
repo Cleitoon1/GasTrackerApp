@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import com.company.alves.gastracker.DAO.MonthDAO;
 import com.company.alves.gastracker.DAO.SupplyDAO;
+import com.company.alves.gastracker.DAO.YearDAO;
+import com.company.alves.gastracker.Model.Month;
 import com.company.alves.gastracker.Model.Supply;
+import com.company.alves.gastracker.Model.Year;
 
 import org.w3c.dom.Text;
 
@@ -30,46 +33,55 @@ public class DetailedList extends AppCompatActivity {
     private ListView listView;
     private EditText edtMonth;
     private SupplyDAO supplyDAO;
+    private MonthDAO monthDAO;
+    private YearDAO yearDAO;
     private TextView monthTxt;
-    private List<String> listMonths;
-
+    private int mes;
+    private int ano;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_list);
         supplyDAO = SupplyDAO.getInstance(getApplicationContext());
-        listMonths = new ArrayList<>();
-        listMonths.addAll(Arrays.asList("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"));
+        monthDAO =  MonthDAO.getInstance(getApplicationContext());
+        yearDAO = YearDAO.getInstance(getApplicationContext());
         final ListView listView = (ListView) findViewById(R.id.listView);
         Button btnRight = (Button) findViewById(R.id.arrowRight);
         Button btnLeft = (Button) findViewById(R.id.arrowLeft);
         Button btnEdit = (Button) findViewById(R.id.btnEdit);
         final TextView monthTxt = (TextView) findViewById(R.id.monthTxt);
-
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        int mes = calendar.get(Calendar.MONTH);
-        monthTxt.setText(listMonths.get(mes));
-
+        mes = calendar.get(Calendar.MONTH) + 1;
+        List<Month> teste = monthDAO.getMonths(0);
+        Year y = yearDAO.getYearByNumber(calendar.get(Calendar.YEAR));
+        Month month = monthDAO.getMonthByDate(mes, y.getYear());
+        monthTxt.setText(month.getName());
         btnLeft.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(listMonths.lastIndexOf(monthTxt.getText()) > 0)
-                    monthTxt.setText(listMonths.get((listMonths.lastIndexOf(monthTxt.getText())) - 1));
+                if((mes - 1 ) >= 1) {
+                    mes = mes - 1;
+                    Month month = monthDAO.getMonthByDate(mes, 0);
+                    monthTxt.setText(month.getName());
+                }
             }
         });
 
         btnRight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(listMonths.lastIndexOf(monthTxt.getText()) < 11)
-                    monthTxt.setText(listMonths.get((listMonths.lastIndexOf(monthTxt.getText())) + 1));
+                if((mes + 1) <= 12) {
+                    mes = mes + 1;
+                    Month month = monthDAO.getMonthByDate(mes, 0);
+                    monthTxt.setText(month.getName());
+                }
             }
         });
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intentGas = new Intent(DetailedList.this, RegisterGas.class);
-                intentGas.putExtra("supplyId", 1); //Optional parameters
+                intentGas.putExtra("monthId", 0); //Optional parameters
+                intentGas.putExtra("supplyId", 0);
                 DetailedList.this.startActivity(intentGas);
-
             }
         });
     }

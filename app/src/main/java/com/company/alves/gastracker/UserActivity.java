@@ -3,6 +3,7 @@ package com.company.alves.gastracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,8 +35,10 @@ public class UserActivity extends AppCompatActivity {
         edtAvg = (EditText) findViewById(R.id.edtAvg);
         btnSave = (Button) findViewById(R.id.btnNext);
 
-        if(userDAO.countUsers() < 1) {
+        if(userDAO.countUsers() > 0) {
+
             User usr = userDAO.getUser();
+            Log.d("Id", "Id: " + usr.getId());
             edtId.setText(String.valueOf(usr.getId()));
             edtName.setText(usr.getName());
             edtCar.setText(usr.getCar());
@@ -46,14 +49,16 @@ public class UserActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 User user = new User();
-                user.setId(Integer.valueOf(edtId.getText().toString()));
+                if(edtId.getText().toString().length() > 0 && edtId.getText().toString() != null)
+                    user.setId(Integer.valueOf(edtId.getText().toString()));
                 user.setName(edtName.getText().toString());
                 user.setCar(edtCar.getText().toString());
-                user.setCarYear(Integer.valueOf(edtYear.getText().toString()));
+                if(edtYear.getText().toString() != "" && edtYear.getText().toString() != null)
+                    user.setCarYear(Integer.valueOf(edtYear.getText().toString()));
+                if(edtAvg.getText().toString() != "" && edtAvg.getText().toString() != null)
                 user.setAvgConsumption(Double.valueOf(edtAvg.getText().toString()));
                 UserDAO userDAO = UserDAO.getInstance(getApplicationContext());
                 if(userDAO.addNEditUser(user)){
-                    Toast.makeText(getApplication(), "Usuário criado com sucesso", Toast.LENGTH_LONG).show();
                     Intent dashboard = new Intent(UserActivity.this, GeneralList.class);
                     startActivity(dashboard);
                     finish();

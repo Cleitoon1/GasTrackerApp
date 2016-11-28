@@ -3,6 +3,7 @@ package com.company.alves.gastracker.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.company.alves.gastracker.DataModel.DataModel;
 import com.company.alves.gastracker.DataSource.DataSource;
@@ -19,7 +20,6 @@ import java.util.List;
 public class MonthDAO {
     DataSource ds;
     ContentValues values;
-    YearDAO yearDAO;
     private static MonthDAO instance;
 
     public static MonthDAO getInstance(Context context){
@@ -60,12 +60,11 @@ public class MonthDAO {
                 aux.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 aux.setName(cursor.getString(cursor.getColumnIndex("name")));
                 aux.setNumber(cursor.getInt(cursor.getColumnIndex("number")));
-                aux.setNumber(cursor.getInt(cursor.getColumnIndex("year_id")));
+                aux.setIdYear(cursor.getInt(cursor.getColumnIndex("year_id")));
                 lst.add(aux);
                 cursor.moveToNext();
             }
         }
-        cursor.close();
         return lst;
     }
 
@@ -73,21 +72,31 @@ public class MonthDAO {
     public Month getMonthById(int idMonth){
         Month retorno = new Month();
         Cursor cursor = ds.find(DataModel.getTbMonth(), null, "id = " + idMonth, null, null, null, null, null);
-        if(cursor.getCount() > 0){
+        if(cursor.getCount() > 0) {
             cursor.moveToFirst();
             retorno.setId(cursor.getInt(cursor.getColumnIndex("id")));
             retorno.setName(cursor.getString(cursor.getColumnIndex("name")));
             retorno.setNumber(cursor.getInt(cursor.getColumnIndex("number")));
             retorno.setNumber(cursor.getInt(cursor.getColumnIndex("year_id")));
         }
-        cursor.close();
         return retorno;
     }
 
-    public void monthsYear(){
-        int y = Calendar.getInstance().get(Calendar.YEAR);
-        int idYear = yearDAO.getYearByNumber(y).getId();
-        for (int i = 0; i < 12; i++) {
+    public Month getMonthByDate(int month, int idYear){
+        Month retorno = new Month();
+        Cursor cursor = ds.find(DataModel.getTbMonth(), null, "number = " + month, null, null, null, null, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToNext();
+            retorno.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            retorno.setName(cursor.getString(cursor.getColumnIndex("name")));
+            retorno.setNumber(cursor.getInt(cursor.getColumnIndex("number")));
+            retorno.setNumber(cursor.getInt(cursor.getColumnIndex("year_id")));
+        }
+        return retorno;
+    }
+
+    public void monthsYear(int idYear) throws Exception {
+        for(int i = 1; 1 <= 12; i++) {
             Month m = new Month();
             m.setName(months(i));
             m.setNumber(i);
@@ -98,8 +107,7 @@ public class MonthDAO {
 
     public String months(int num){
         List<String> m = new ArrayList<String>();
-        m.addAll(Arrays.asList("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"));
+        m.addAll(Arrays.asList("Indefinido", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"));
         return m.get(num);
     }
-
 }

@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.company.alves.gastracker.DataModel.DataModel;
 import com.company.alves.gastracker.DataSource.DataSource;
 import com.company.alves.gastracker.Model.Year;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -41,7 +43,10 @@ public class YearDAO {
         values.put("year", year.getYear());
         try {
             ds.persist(values, DataModel.getTbYear());
-            monthDAO.monthsYear();
+            int y = Calendar.getInstance().get(Calendar.YEAR);
+            int idYear = getYearByNumber(y).getId();
+            Log.d("MESID", "ID: " + idYear);
+            monthDAO.monthsYear(idYear);
             return true;
         } catch (Exception e) {
             return false;
@@ -83,8 +88,4 @@ public class YearDAO {
             return false;
         }
     }
-
-
 }
-
-

@@ -67,7 +67,6 @@ public class DataSource extends SQLiteOpenHelper {
         if(values.containsKey("id") && values.getAsInteger("id") != null && values.getAsInteger("id") != 0){
             Integer id = values.getAsInteger("id");
             db.update(tabela, values, "id = " + id, null);
-            db.close();
         }else{
             db.insert(tabela, null, values);
         }
@@ -76,6 +75,10 @@ public class DataSource extends SQLiteOpenHelper {
     //método para dar select no banco.
     public Cursor find(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit){
         return db.query(table, columns, selection, selectionArgs, groupBy, having, orderBy, limit);
+    }
+
+    public Cursor findSimple(String query){
+        return db.rawQuery(query, null);
     }
 
     //deletar o registo de uma tabela

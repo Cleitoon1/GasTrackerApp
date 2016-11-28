@@ -3,6 +3,7 @@ package com.company.alves.gastracker.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.company.alves.gastracker.DataModel.DataModel;
 import com.company.alves.gastracker.DataSource.DataSource;
@@ -44,13 +45,11 @@ public class UserDAO {
         values.put("avg_consumption", usr.getAvgConsumption());
         try {
             ds.persist(values, DataModel.getTbUser());
-            if(usr.getId() != 1){
-                int year = Calendar.getInstance().get(Calendar.YEAR);
-                if(yearDAO.getYearByNumber(year).getYear() != year){
-                    Year y = new Year();
-                    y.setYear(year);
-                    yearDAO.addNEditYear(y);
-                }
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            if(yearDAO.getYearByNumber(year).getYear() != year){
+                Year y = new Year();
+                y.setYear(year);
+                yearDAO.addNEditYear(y);
             }
             return true;
         } catch (Exception e) {
@@ -60,10 +59,11 @@ public class UserDAO {
 
     //Método para retornar o usuário criado.
     public User getUser() {
-        Cursor cursor = ds.find(DataModel.getTbUser(), null, "id = " + 1, null, null, null, null, null);
+        Cursor cursor = ds.find(DataModel.getTbUser(), null, null, null, null, null, null, null);
         User aux = new User();
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
+            Log.d("Id", "Id: "+ cursor.getString(cursor.getColumnIndex("id")));
             aux.setId(cursor.getInt(cursor.getColumnIndex("id")));
             aux.setName(cursor.getString(cursor.getColumnIndex("name")));
             aux.setCar(cursor.getString(cursor.getColumnIndex("car")));

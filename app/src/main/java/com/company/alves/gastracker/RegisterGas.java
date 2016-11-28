@@ -22,14 +22,19 @@ public class RegisterGas extends AppCompatActivity {
     private EditText edtStation;
     private EditText edtDate;
     private Button btnSave;
+    private int monthId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_gas);
         Intent intent = getIntent();
-        int supplyId = Integer.getInteger(intent.getStringExtra("supplyId"));
-
+        int supplyId = 0;
+        monthId = 0;
+        if(intent.getStringExtra("supplyId") != null)
+            supplyId = Integer.getInteger(intent.getStringExtra("supplyId"));
+        if(intent.getStringExtra("monthId") != null)
+            monthId = Integer.getInteger(intent.getStringExtra("monthId"));
         supplyDAO = SupplyDAO.getInstance(getApplicationContext());
         edtId = (EditText) findViewById(R.id.supId);
         edtValor = (EditText) findViewById(R.id.edtValor);
@@ -38,20 +43,28 @@ public class RegisterGas extends AppCompatActivity {
         edtDate = (EditText) findViewById(R.id.edtValor);
         btnSave = (Button) findViewById(R.id.btnSave);
 
-        if(supplyId > 0)
-            supplyDAO.getSupply(supplyId);
-
+        /*if(supplyId == 0) {
+            Supply sup = supplyDAO.getSupply(supplyId);
+            edtId.setText(String.valueOf(sup.getId()));
+            edtStation.setText(sup.getGasStation());
+            edtLitro.setText(String.valueOf(sup.getLiters()));
+            edtValor.setText(String.valueOf(sup.getValue()));
+        }*/
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SupplyDAO supplyDAO = SupplyDAO.getInstance(getApplicationContext());
                 MonthDAO monthDAO =  MonthDAO.getInstance(getApplicationContext());
 
                 Supply supply = new Supply();
-                supply.setId(Integer.valueOf(edtId.getText().toString()));
-                supply.setValue(Double.valueOf(edtValor.getText().toString()));
-                supply.setLiters(Double.valueOf(edtLitro.getText().toString()));
+                supply.setGasStation(edtStation.getText().toString());
+                if(edtId.getText().toString() != "" && edtId.getText().toString().length() > 0)
+                    supply.setId(Integer.valueOf(edtId.getText().toString()));
+                if(edtValor.getText().toString() != "" && Double.valueOf(edtValor.getText().toString()) > 0)
+                    supply.setValue(Double.valueOf(edtValor.getText().toString()));
+                if(edtLitro.getText().toString() != "" && Double.valueOf(edtLitro.getText().toString()) > 0)
+                    supply.setLiters(Double.valueOf(edtLitro.getText().toString()));
                 //supply.getDate(Date.valueOf(edtDate.getText().toString()));
-                //supply.setIdMonth();
+                supply.setIdMonth(monthId);
                 if(supplyDAO.addNeditSupply(supply)){
                     Toast.makeText(getApplication(), "Registro criado com sucesso", Toast.LENGTH_LONG).show();
                     Intent dashboard = new Intent(RegisterGas.this, DetailedList.class);

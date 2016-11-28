@@ -56,11 +56,11 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:hint="Qual o ano do seu carro?"
-
         android:layout_above="@+id/edtAvg"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-    <!--        android:digits="0123456789" -->
+        android:layout_alignParentEnd="true"
+         />
+        <!-- android:digits="0123456789" -->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,7 +73,8 @@
         android:textColor="#FFFFFF"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:hint="Qual a média de consumo?" />
+        android:hint="Qual a média de consumo?"
+        />
     <!-- android:digits="0123456789.," -->
     <EditText
         android:layout_width="wrap_content"
@@ -81,7 +82,6 @@
         android:id="@+id/edtId"
         android:inputType="text"
         android:width="700px"
-        android:hint="ID do Usuário"
         android:textColorHint="#FFFFFF"
         android:textSize="22dp"
         android:textAlignment="center"

@@ -3,6 +3,7 @@ package com.company.alves.gastracker.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.company.alves.gastracker.DataModel.DataModel;
 import com.company.alves.gastracker.DataSource.DataSource;
@@ -41,7 +42,7 @@ public class SupplyDAO {
         values.put("gas_station", sup.getGasStation());
         values.put("month_id ", sup.getIdMonth());
         try {
-            ds.persist(values, DataModel.getTbMonth());
+            ds.persist(values, DataModel.getTbSupply());
             return true;
         } catch (Exception e){
             return false;
@@ -50,10 +51,11 @@ public class SupplyDAO {
 
     //Retora os dados do abastecimento passando o seu ID
     public Supply getSupply(int idSup){
-        Cursor cursor = ds.find(DataModel.getTbSupply(),null, "id = " + idSup, null, null, null, null, null);
+        Cursor cursor = ds.find(DataModel.getTbSupply(),null, null, null, null, null, null, null);
         Supply retorno = new Supply();
         String str = "";
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        Log.d("numero", "abastatencimento n: " + cursor.getCount());
         if(cursor.getCount() > 0) {
             cursor.moveToFirst();
             str = cursor.getString(cursor.getColumnIndex("date"));
@@ -69,8 +71,8 @@ public class SupplyDAO {
             retorno.setDate(date);
             retorno.setGasStation(cursor.getString(cursor.getColumnIndex("gas_station")));
             retorno.setIdMonth(cursor.getInt(cursor.getColumnIndex("month_id")));
+            Log.d("abs", "reg: " + retorno.getId() + ' ' + retorno.getGasStation());
         }
-        cursor.close();
         return retorno;
     }
 
@@ -102,7 +104,6 @@ public class SupplyDAO {
                 lst.add(aux);
             }
         }
-        cursor.close();
         return lst;
     }
 
