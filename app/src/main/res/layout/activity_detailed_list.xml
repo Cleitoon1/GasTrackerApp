@@ -19,7 +19,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="600px"
-        android:id="@+id/listView"
+        android:id="@+id/supplyList"
         android:divider="#ff4081"
         android:layout_below="@+id/btnBack"
         android:layout_alignEnd="@+id/arrowRight"

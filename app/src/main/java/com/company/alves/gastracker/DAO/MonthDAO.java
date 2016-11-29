@@ -84,7 +84,7 @@ public class MonthDAO {
 
     public Month getMonthByDate(int month, int idYear){
         Month retorno = new Month();
-        Cursor cursor = ds.find(DataModel.getTbMonth(), null, "number = " + month, null, null, null, null, null);
+        Cursor cursor = ds.find(DataModel.getTbMonth(), null, "number = " + month + " and year_id = " + idYear, null, null, null, null, null);
         if(cursor.getCount() > 0){
             cursor.moveToNext();
             retorno.setId(cursor.getInt(cursor.getColumnIndex("id")));

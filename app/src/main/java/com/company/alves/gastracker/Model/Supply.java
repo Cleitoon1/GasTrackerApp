@@ -60,4 +60,10 @@ public class Supply {
     public void setIdMonth(int idMonth) {
         this.idMonth = idMonth;
     }
+
+    @Override
+    public String toString() {
+        return "Posto: " + gasStation + " Valor(R$): " +
+                value + " Litros: " + liters;
+    }
 }

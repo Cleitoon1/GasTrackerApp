@@ -38,32 +38,36 @@ public class DetailedList extends AppCompatActivity {
     private YearDAO yearDAO;
     private TextView monthTxt;
     private int mes;
-    private int ano;
+    private Month month;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_list);
+        //Instância os DAOs e o objetos da tela
         supplyDAO = SupplyDAO.getInstance(getApplicationContext());
         monthDAO =  MonthDAO.getInstance(getApplicationContext());
         yearDAO = YearDAO.getInstance(getApplicationContext());
-        final ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.supplyList);
         Button btnRight = (Button) findViewById(R.id.arrowRight);
         Button btnLeft = (Button) findViewById(R.id.arrowLeft);
         Button btnEdit = (Button) findViewById(R.id.btnEdit);
         Button btnBack = (Button) findViewById(R.id.btnBack);
         final TextView monthTxt = (TextView) findViewById(R.id.monthTxt);
+        //Busca o mes atual, colocar o nome na tela e chama a função de preencher o listView usando o id do mes
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         mes = calendar.get(Calendar.MONTH) + 1;
-        List<Month> teste = monthDAO.getMonths(0);
-        Year y = yearDAO.getYearByNumber(calendar.get(Calendar.YEAR));
-        Month month = monthDAO.getMonthByDate(mes, y.getYear());
+        if(mes <= 12 && mes > 1);
+            final Year year = yearDAO.getYearByNumber(calendar.get(Calendar.YEAR));
+        month = monthDAO.getMonthByDate(mes, year.getId());
         monthTxt.setText(month.getName());
+        preencherListView(month.getId());
         btnLeft.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if((mes - 1 ) >= 1) {
                     mes = mes - 1;
-                    Month month = monthDAO.getMonthByDate(mes, 0);
+                    month = monthDAO.getMonthByDate(mes, year.getId());
                     monthTxt.setText(month.getName());
+                    preencherListView(month.getId());
                 }
             }
         });
@@ -72,8 +76,9 @@ public class DetailedList extends AppCompatActivity {
             public void onClick(View v) {
                 if((mes + 1) <= 12) {
                     mes = mes + 1;
-                    Month month = monthDAO.getMonthByDate(mes, 0);
+                    month = monthDAO.getMonthByDate(mes, year.getId());
                     monthTxt.setText(month.getName());
+                    preencherListView(month.getId());
                 }
             }
         });
@@ -81,8 +86,7 @@ public class DetailedList extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intentGas = new Intent(DetailedList.this, RegisterGas.class);
-                intentGas.putExtra("monthId", 0); //Optional parameters
-                intentGas.putExtra("supplyId", 0);
+                intentGas.putExtra("monthId", month.getId());
                 DetailedList.this.startActivity(intentGas);
             }
         });
@@ -95,9 +99,14 @@ public class DetailedList extends AppCompatActivity {
         });
     }
 
-    public void preencherListView(int ano, int mes){
-        List<Supply> supplys = new ArrayList<>();
-        ArrayAdapter<Supply> supplysAdapter = new ArrayAdapter<Supply>(this, android.R.layout.activity_list_item, supplys);
-        listView.setAdapter(supplysAdapter);
+    public void preencherListView(int idMes){
+        List<Supply> supplys = supplyDAO.getSupplyByMonth(idMes);
+        if(supplys.size() > 0) {
+            Log.d("Supply", supplys.size() + " " + supplys.get(0).getId() + " " + supplys.get(0).getIdMonth() + " " + supplys.get(0).getLiters() + " " +
+                    supplys.get(0).getValue() + " " + supplys.get(0).getGasStation() + " " + supplys.get(0).getDate());
+            ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(this, android.R.layout.simple_list_item_1, supplys);
+            listView.setAdapter(supplyAdapter);
+        }
     }
+
 }

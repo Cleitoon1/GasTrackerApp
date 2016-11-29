@@ -9,6 +9,7 @@ import com.company.alves.gastracker.DataModel.DataModel;
 import com.company.alves.gastracker.DataSource.DataSource;
 import com.company.alves.gastracker.Model.Supply;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class SupplyDAO {
         values.put("value", sup.getValue());
         values.put("liters", sup.getLiters());
         values.put("gas_station", sup.getGasStation());
-        values.put("month_id ", sup.getIdMonth());
+        values.put("month_id", sup.getIdMonth());
         try {
             ds.persist(values, DataModel.getTbSupply());
             return true;
@@ -71,7 +72,6 @@ public class SupplyDAO {
             retorno.setDate(date);
             retorno.setGasStation(cursor.getString(cursor.getColumnIndex("gas_station")));
             retorno.setIdMonth(cursor.getInt(cursor.getColumnIndex("month_id")));
-            Log.d("abs", "reg: " + retorno.getId() + ' ' + retorno.getGasStation());
         }
         return retorno;
     }
@@ -80,24 +80,25 @@ public class SupplyDAO {
     public List<Supply> getSupplyByMonth(int idMonth){
         List<Supply> lst = new ArrayList<Supply>();
         Cursor cursor = ds.find(DataModel.getTbSupply(),null, "month_id = " + idMonth, null, null, null, null, null);
-        String str = "";
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+      //  String str = "";
+      //  SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         if(cursor.getCount() > 0){
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToFirst();
-                str= "";
+        //        str= "";
                 Supply aux = new Supply();
-                str = cursor.getString(cursor.getColumnIndex("date"));
-                Date date = new Date();
+          //      str = cursor.getString(cursor.getColumnIndex("date"));
+            /*    Date date = new Date();
                 try {
                     date = format.parse(str);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                }
+                }*/
                 aux.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 aux.setValue(cursor.getDouble(cursor.getColumnIndex("value")));
                 aux.setLiters(cursor.getDouble(cursor.getColumnIndex("liters")));
-                //aux.setDate();
+                Date date = new Date();
+                aux.setDate(date);
                 aux.setGasStation(cursor.getString(cursor.getColumnIndex("gas_station")));
                 aux.setIdMonth(cursor.getInt(cursor.getColumnIndex("month_id")));
                 cursor.moveToNext();
