@@ -52,7 +52,7 @@ public class SupplyDAO {
 
     //Retora os dados do abastecimento passando o seu ID
     public Supply getSupply(int idSup){
-        Cursor cursor = ds.find(DataModel.getTbSupply(),null, null, null, null, null, null, null);
+        Cursor cursor = ds.find(DataModel.getTbSupply(),null, "id = " + idSup, null, null, null, null, null);
         Supply retorno = new Supply();
         String str = "";
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -83,8 +83,8 @@ public class SupplyDAO {
       //  String str = "";
       //  SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         if(cursor.getCount() > 0){
+            cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToFirst();
         //        str= "";
                 Supply aux = new Supply();
           //      str = cursor.getString(cursor.getColumnIndex("date"));

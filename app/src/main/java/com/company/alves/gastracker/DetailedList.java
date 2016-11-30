@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ public class DetailedList extends AppCompatActivity {
     private int mes;
     private Month month;
     private Year year;
+    private List<Supply> supplys;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,7 @@ public class DetailedList extends AppCompatActivity {
             year = yearDAO.getYearByNumber(calendar.get(Calendar.YEAR));
         month = monthDAO.getMonthByDate(mes, year.getId());
 
-        List<Supply> supplys = supplyDAO.getSupplyByMonth(month.getId());
+        supplys = supplyDAO.getSupplyByMonth(month.getId());
         if(supplys.size() > 0) {
             ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(this, android.R.layout.simple_list_item_1, supplys);
             listView.setAdapter(supplyAdapter);
@@ -71,7 +73,7 @@ public class DetailedList extends AppCompatActivity {
             public void onClick(View v) {
                 if((mes - 1 ) >= 1) {
                     mes = mes - 1;
-                    List<Supply> supplys = new ArrayList<Supply>();
+                    supplys = new ArrayList<Supply>();
                     ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(DetailedList.this, android.R.layout.simple_list_item_1, supplys);
                     listView.setAdapter(supplyAdapter);
                     month = monthDAO.getMonthByDate(mes, year.getId());
@@ -89,7 +91,7 @@ public class DetailedList extends AppCompatActivity {
             public void onClick(View v) {
                 if((mes + 1) <= 12) {
                     mes = mes + 1;
-                    List<Supply> supplys = new ArrayList<Supply>();
+                    supplys = new ArrayList<Supply>();
                     ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(DetailedList.this, android.R.layout.simple_list_item_1, supplys);
                     listView.setAdapter(supplyAdapter);
                     month = monthDAO.getMonthByDate(mes, year.getId());
@@ -115,6 +117,14 @@ public class DetailedList extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentUser = new Intent(DetailedList.this, UserActivity.class);
                 DetailedList.this.startActivity(intentUser);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
+                Intent intentGas = new Intent(DetailedList.this, RegisterGas.class);
+                intentGas.putExtra("supplyId", supplys.get(myItemInt).getId());
+                DetailedList.this.startActivity(intentGas);
             }
         });
     }

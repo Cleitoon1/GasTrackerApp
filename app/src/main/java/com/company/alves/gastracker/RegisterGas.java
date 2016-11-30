@@ -49,6 +49,7 @@ public class RegisterGas extends AppCompatActivity {
             edtStation.setText(sup.getGasStation());
             edtLitro.setText(String.valueOf(sup.getLiters()));
             edtValor.setText(String.valueOf(sup.getValue()));
+            monthId = sup.getIdMonth();
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
