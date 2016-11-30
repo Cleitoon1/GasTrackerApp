@@ -39,6 +39,7 @@ public class DetailedList extends AppCompatActivity {
     private TextView monthTxt;
     private int mes;
     private Month month;
+    private Year year;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class DetailedList extends AppCompatActivity {
         supplyDAO = SupplyDAO.getInstance(getApplicationContext());
         monthDAO =  MonthDAO.getInstance(getApplicationContext());
         yearDAO = YearDAO.getInstance(getApplicationContext());
-        ListView listView = (ListView) findViewById(R.id.supplyList);
+        listView = (ListView) findViewById(R.id.supplyList);
         Button btnRight = (Button) findViewById(R.id.arrowRight);
         Button btnLeft = (Button) findViewById(R.id.arrowLeft);
         Button btnEdit = (Button) findViewById(R.id.btnEdit);
@@ -56,18 +57,30 @@ public class DetailedList extends AppCompatActivity {
         //Busca o mes atual, colocar o nome na tela e chama a função de preencher o listView usando o id do mes
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         mes = calendar.get(Calendar.MONTH) + 1;
-        if(mes <= 12 && mes > 1);
-            final Year year = yearDAO.getYearByNumber(calendar.get(Calendar.YEAR));
+        if(mes <= 12 && mes > 1)
+            year = yearDAO.getYearByNumber(calendar.get(Calendar.YEAR));
         month = monthDAO.getMonthByDate(mes, year.getId());
+
+        List<Supply> supplys = supplyDAO.getSupplyByMonth(month.getId());
+        if(supplys.size() > 0) {
+            ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(this, android.R.layout.simple_list_item_1, supplys);
+            listView.setAdapter(supplyAdapter);
+        }
         monthTxt.setText(month.getName());
-        preencherListView(month.getId());
         btnLeft.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if((mes - 1 ) >= 1) {
                     mes = mes - 1;
+                    List<Supply> supplys = new ArrayList<Supply>();
+                    ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(DetailedList.this, android.R.layout.simple_list_item_1, supplys);
+                    listView.setAdapter(supplyAdapter);
                     month = monthDAO.getMonthByDate(mes, year.getId());
                     monthTxt.setText(month.getName());
-                    preencherListView(month.getId());
+                    supplys = supplyDAO.getSupplyByMonth(month.getId());
+                    if(supplys.size() > 0) {
+                        supplyAdapter = new ArrayAdapter<Supply>(DetailedList.this, android.R.layout.simple_list_item_1, supplys);
+                        listView.setAdapter(supplyAdapter);
+                    }
                 }
             }
         });
@@ -76,9 +89,16 @@ public class DetailedList extends AppCompatActivity {
             public void onClick(View v) {
                 if((mes + 1) <= 12) {
                     mes = mes + 1;
+                    List<Supply> supplys = new ArrayList<Supply>();
+                    ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(DetailedList.this, android.R.layout.simple_list_item_1, supplys);
+                    listView.setAdapter(supplyAdapter);
                     month = monthDAO.getMonthByDate(mes, year.getId());
                     monthTxt.setText(month.getName());
-                    preencherListView(month.getId());
+                    supplys = supplyDAO.getSupplyByMonth(month.getId());
+                    if(supplys.size() > 0) {
+                        supplyAdapter = new ArrayAdapter<Supply>(DetailedList.this, android.R.layout.simple_list_item_1, supplys);
+                        listView.setAdapter(supplyAdapter);
+                    }
                 }
             }
         });
@@ -97,16 +117,6 @@ public class DetailedList extends AppCompatActivity {
                 DetailedList.this.startActivity(intentUser);
             }
         });
-    }
-
-    public void preencherListView(int idMes){
-        List<Supply> supplys = supplyDAO.getSupplyByMonth(idMes);
-        if(supplys.size() > 0) {
-            Log.d("Supply", supplys.size() + " " + supplys.get(0).getId() + " " + supplys.get(0).getIdMonth() + " " + supplys.get(0).getLiters() + " " +
-                    supplys.get(0).getValue() + " " + supplys.get(0).getGasStation() + " " + supplys.get(0).getDate());
-            ArrayAdapter<Supply> supplyAdapter = new ArrayAdapter<Supply>(this, android.R.layout.simple_list_item_1, supplys);
-            listView.setAdapter(supplyAdapter);
-        }
     }
 
 }

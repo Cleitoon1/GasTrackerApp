@@ -101,8 +101,8 @@ public class SupplyDAO {
                 aux.setDate(date);
                 aux.setGasStation(cursor.getString(cursor.getColumnIndex("gas_station")));
                 aux.setIdMonth(cursor.getInt(cursor.getColumnIndex("month_id")));
-                cursor.moveToNext();
                 lst.add(aux);
+                cursor.moveToNext();
             }
         }
         return lst;

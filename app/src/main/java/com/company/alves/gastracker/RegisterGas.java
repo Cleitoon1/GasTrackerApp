@@ -31,6 +31,15 @@ public class RegisterGas extends AppCompatActivity {
         Bundle intent = getIntent().getExtras();
         int supplyId = 0;
         monthId = 0;
+
+        supplyDAO = SupplyDAO.getInstance(getApplicationContext());
+        edtId = (EditText) findViewById(R.id.supId);
+        edtValor = (EditText) findViewById(R.id.edtValor);
+        edtLitro = (EditText) findViewById(R.id.edtLitro);
+        edtStation = (EditText) findViewById(R.id.edtStation);
+        edtDate = (EditText) findViewById(R.id.edtValor);
+        btnSave = (Button) findViewById(R.id.btnSave);
+
         if(intent.getInt("monthId") != 0)
             monthId = intent.getInt("monthId");
         if(intent.getInt("supplyId") != 0) {
@@ -41,13 +50,6 @@ public class RegisterGas extends AppCompatActivity {
             edtLitro.setText(String.valueOf(sup.getLiters()));
             edtValor.setText(String.valueOf(sup.getValue()));
         }
-        supplyDAO = SupplyDAO.getInstance(getApplicationContext());
-        edtId = (EditText) findViewById(R.id.supId);
-        edtValor = (EditText) findViewById(R.id.edtValor);
-        edtLitro = (EditText) findViewById(R.id.edtLitro);
-        edtStation = (EditText) findViewById(R.id.edtStation);
-        edtDate = (EditText) findViewById(R.id.edtValor);
-        btnSave = (Button) findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
