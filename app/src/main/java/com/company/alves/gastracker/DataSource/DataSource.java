@@ -78,10 +78,6 @@ public class DataSource extends SQLiteOpenHelper {
         return db.query(table, columns, selection, selectionArgs, groupBy, having, orderBy, limit);
     }
 
-    public Cursor findSimple(String query){
-        return db.rawQuery(query, null);
-    }
-
     //deletar o registo de uma tabela
     public void delete(String table, String where, String[] whereClauses) {
         db.delete(table, where, whereClauses);

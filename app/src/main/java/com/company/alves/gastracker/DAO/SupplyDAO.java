@@ -52,7 +52,7 @@ public class SupplyDAO {
 
     //Retora os dados do abastecimento passando o seu ID
     public Supply getSupply(int idSup){
-        Cursor cursor = ds.find(DataModel.getTbSupply(),null, "id = " + idSup, null, null, null, null, null);
+        Cursor cursor = ds.find(DataModel.getTbSupply(),null, null, null, null, null, null, null);
         Supply retorno = new Supply();
         String str = "";
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -118,12 +118,4 @@ public class SupplyDAO {
         }
     }
 
-    public Boolean deleteSupplysByMonth(int idMonth){
-        try{
-            ds.delete(DataModel.getTbSupply(), "month_id = " + idMonth, null);
-            return true;
-        } catch (Exception e){
-            return false;
-        }
-    }
 }

@@ -12,12 +12,13 @@ public class GeneralList extends AppCompatActivity {
 
     private Button btnEdit;
     private Button btnReport;
+    private UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general_list);
-        UserDAO userDAO = UserDAO.getInstance(getApplicationContext());
+        userDAO = UserDAO.getInstance(getApplicationContext());
         if (userDAO.countUsers() < 1) {
             Intent userIntent = new Intent(GeneralList.this, UserActivity.class);
             startActivity(userIntent);

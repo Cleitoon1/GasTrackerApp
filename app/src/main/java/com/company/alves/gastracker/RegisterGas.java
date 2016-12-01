@@ -16,7 +16,6 @@ import com.company.alves.gastracker.Model.Supply;
 import java.sql.Date;
 
 public class RegisterGas extends AppCompatActivity {
-    SupplyDAO supplyDAO;
     private EditText edtId;
     private EditText edtValor;
     private EditText edtLitro;
@@ -24,6 +23,7 @@ public class RegisterGas extends AppCompatActivity {
     private EditText edtDate;
     private Button btnSave;
     private int monthId;
+    SupplyDAO supplyDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

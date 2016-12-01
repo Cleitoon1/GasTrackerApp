@@ -19,13 +19,13 @@ public class UserActivity extends AppCompatActivity {
     private EditText edtYear;
     private EditText edtAvg;
     private Button btnSave;
-
+    private UserDAO userDAO;
     //http://professormarcomaddo.blogspot.com.br/2015/05/curso-android-aula-10-crud-sqlite-insert.html
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        UserDAO userDAO = UserDAO.getInstance(getApplicationContext());
+        userDAO = UserDAO.getInstance(getApplicationContext());
 
         //passando os valores para a variavel
         edtId = (EditText) findViewById(R.id.edtId);
@@ -57,7 +57,7 @@ public class UserActivity extends AppCompatActivity {
                     user.setCarYear(Integer.valueOf(edtYear.getText().toString()));
                 if(edtAvg.getText().toString() != "" && edtAvg.getText().toString() != null)
                 user.setAvgConsumption(Double.valueOf(edtAvg.getText().toString()));
-                UserDAO userDAO = UserDAO.getInstance(getApplicationContext());
+                userDAO = UserDAO.getInstance(getApplicationContext());
                 if(userDAO.addNEditUser(user)){
                     Intent dashboard = new Intent(UserActivity.this, GeneralList.class);
                     startActivity(dashboard);
