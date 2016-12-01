@@ -3,6 +3,9 @@
 **Integrantes: Cleiton Alves e João Vitor Lessa**<br>
 **Orientador: Giuliano Bertoti**
 
+Diagrama de Classe:
+http://imgur.com/hvrg70M
+
 Telas da aplicação: 
 
 * 1 - Tela de Cadastro: http://imgur.com/YnQ0sKo
