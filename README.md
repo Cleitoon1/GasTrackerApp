@@ -5,9 +5,9 @@
 
 Telas da aplicação: 
 
-* 1 - Nome: http://imgur.com/VmBJrZ4
-* 2 - Carro: http://imgur.com/j6okHgF
-* 3 - Kilometragem: http://imgur.com/H4saHI1
-* 4 - Relatório Geral: http://imgur.com/NinjHiU
-* 5 - Relatório Detalhado: http://imgur.com/uOFIa4z
-* 6 - Diagrama: http://imgur.com/UkE3DIb
+* 1 - Tela de Cadastro: http://imgur.com/YnQ0sKo
+* 2 - Dashboard: http://imgur.com/Y6uX6BL
+* 3 - Relatórios (sem registro - primeira tela): http://imgur.com/UUQ3y0a
+* 4 - Novo Registro de Abastecimento: http://imgur.com/Hm3AZut
+* 5 - Exibição de registros mensais (com opção de edição): http://imgur.com/917FvMP
+* 6 - Edição de registros: http://imgur.com/3kFF7vV
